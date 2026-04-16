@@ -49,7 +49,7 @@ def test_batch_size(batch_size: int, local_rank: int):
         # record
         loss, acc, dt, tt, tot = train_epoch(model, loader, optimizer, criterion, device)
         if local_rank == 0:
-            print(f"{loss:>8.4f}  {acc:>7.2f}  {dt:>10.3f}  {tt:>10.3f}  {tot:>10.3f}")
+            print(f"{batch_size:>10}  {loss:>8.4f}  {acc:>7.2f}  {dt:>10.3f}  {tt:>10.3f}  {tot:>10.3f}")
 
         return True
 
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     if local_rank == 0:
         print("Speedup Measurement\n")
-        print(f"{'loss':>8}  {'acc(%)':>7}  {'data(s)':>10}  {'train(s)':>10}  {'total(s)':>10}")
+        print(f"{'batch':>10}  {'loss':>8}  {'acc(%)':>7}  {'data(s)':>10}  {'train(s)':>10}  {'total(s)':>10}")
 
     k, factor = 32, 4
     prev_k = k
