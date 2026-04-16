@@ -8,6 +8,18 @@
 pip install uv
 ```
 
+If `uv` is not found after installation, add pip's user bin directory to your PATH:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+To make this permanent, add the line above to your `~/.bashrc` or `~/.zshrc` and reload:
+
+```bash
+source ~/.bashrc   # or source ~/.zshrc
+```
+
 ### Configure uv environment
 
 ```bash
