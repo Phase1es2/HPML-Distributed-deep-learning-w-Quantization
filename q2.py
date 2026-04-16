@@ -71,22 +71,11 @@ if __name__ == "__main__":
         print("Speedup Measurement\n")
         print(f"{'batch':>10}  {'loss':>8}  {'acc(%)':>7}  {'data(s)':>10}  {'train(s)':>10}  {'total(s)':>10}")
 
-    k, factor = 32, 4
-    prev_k = k
-    num_gpu = dist.get_world_size()
-
-    while True:
-        #if local_rank == 0:
-        #     print(f"Training with batch size {k}")
+    for k in [32, 128, 512, 1024]:
         success = test_batch_size(k, local_rank)
-
         if not success:
             if local_rank == 0:
                 print(f"\nOOM at batch size {k}")
-                print(f"Max usable batch size: {prev_k}")
             break
-        else:
-            prev_k = k
-            k *= factor
 
     cleanup()
