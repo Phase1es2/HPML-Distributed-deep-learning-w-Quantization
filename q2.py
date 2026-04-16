@@ -76,8 +76,8 @@ if __name__ == "__main__":
     num_gpu = dist.get_world_size()
 
     while True:
-        if local_rank == 0:
-            print(f"Training with batch size {k}")
+        #if local_rank == 0:
+        #     print(f"Training with batch size {k}")
         success = test_batch_size(k, local_rank)
 
         if not success:

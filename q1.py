@@ -26,7 +26,7 @@ def test_batch_size(batch_size: int):
 
         # record
         loss, acc, dt, tt, tot = train_epoch(model, loader, optimizer, criterion, device)
-        print(f"{loss:>8.4f}  {acc:>7.2f}  {dt:>10.3f}  {tt:>10.3f}  {tot:>10.3f}")
+        print(f"{batch_size:>10}  {loss:>8.4f}  {acc:>7.2f}  {dt:>10.3f}  {tt:>10.3f}  {tot:>10.3f}")
 
         return True
 
@@ -40,13 +40,13 @@ def test_batch_size(batch_size: int):
 
 if __name__ == "__main__":
     print("Computational Efficiency w.r.t Batch Size\n")
-    print(f"{'loss':>8}  {'acc(%)':>7}  {'data(s)':>10}  {'train(s)':>10}  {'total(s)':>10}")
+    print(f"{'batch':>10}  {'loss':>8}  {'acc(%)':>7}  {'data(s)':>10}  {'train(s)':>10}  {'total(s)':>10}")
 
     k, factor = 32, 4
     prev_k = k
 
     while True:
-        print(f"Training with batch size {k}")
+        # print(f"Training with batch size {k}")
         success = test_batch_size(k)
 
         if not success:
