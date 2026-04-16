@@ -109,27 +109,20 @@ if __name__ == "__main__":
         print(f"Computation vs Communication — {world_size} GPU(s)\n")
         print(f"{'batch':>8}  {'compute(s)':>12}  {'comm(s)':>10}  {'total(s)':>10}  {'BW(GB/s)':>10}")
 
-    k, factor = 32, 4
-    prev_k = k
-
     # Reference model for param count (bandwidth formula)
     ref_model = ResNet18(num_classes=10)
 
-    while True:
+    for k in [32, 128, 512, 1024]:
         success, compute_time, comm_time, total_time = test_batch_size(k, local_rank)
 
         if not success:
             if local_rank == 0:
                 print(f"\nOOM at batch size {k}")
-                print(f"Max usable batch size: {prev_k}")
             break
 
         bw = bandwidth_utilization(ref_model, comm_time, world_size)
         if local_rank == 0:
             print(f"{k:>8}  {compute_time:>12.3f}  {comm_time:>10.3f}  {total_time:>10.3f}  {bw:>10.3f}")
-
-        prev_k = k
-        k *= factor
 
     if local_rank == 0:
         num_params = sum(p.numel() for p in ref_model.parameters())
