@@ -25,4 +25,5 @@ def get_dataloader(data_path: str, batch_size: int,
     return torch.utils.data.DataLoader(
         dataset, batch_size=batch_size,
         num_workers=num_workers, pin_memory=True,
+        multiprocessing_context='spawn' if num_workers > 0 else None,
     )
